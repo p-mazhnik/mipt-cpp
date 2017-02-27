@@ -7,7 +7,7 @@ int main()
     String a;
     std::cin >> a;
     String b;
-    b = " ,people;)";
+    b = " ,people;)!";
     b.append(c);
     std::cout << s + a + b<< std::endl;
     std::cout << a[0] << std::endl;
