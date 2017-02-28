@@ -4,6 +4,6 @@ project(mipt_cpp)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        "String 21.02/main.cpp" "String 21.02/String.cpp" "String 21.02/String.h")
+        "Matrix 28.02/main.cpp" "Matrix 28.02/Matrix.cpp" "Matrix 28.02/Matrix.h")
 
 add_executable(mipt_cpp ${SOURCE_FILES})
