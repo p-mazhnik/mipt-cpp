@@ -26,7 +26,8 @@ public:
 
     friend std::ostream &operator<<(std::ostream &, const Matrix &);
     friend std::istream &operator>>(std::istream &, const Matrix &);
-    friend
+    friend Matrix operator+(Matrix &, Matrix &);
+    friend Matrix operator*(Matrix &, Matrix &);
 
     Matrix eye(size_t);
 };
