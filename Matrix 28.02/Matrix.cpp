@@ -40,8 +40,9 @@ void Matrix::set(size_t row, size_t col, matrix_cell value) {
 std::ostream &operator<<(std::ostream &out, const Matrix &matrix) {
     for (int row = 0; row < matrix.row_count; ++row) {
         for (int col = 0; col < matrix.col_count; ++col) {
-            out << matrix.values[row][col];
+            out << matrix.values[row][col] << ' ';
         }
+        out << '\n';
     }
     return out;
 }
@@ -62,5 +63,25 @@ Matrix Matrix::eye(size_t count) {
                 result.values[row][col] = (col == row);
             }
         }
+    return result;
+}
+
+Matrix operator+(Matrix &m1, Matrix &m2) {
+    Matrix result(m1.row_count, m1.col_count);
+    for (int row = 0; row < m1.row_count; ++row) {
+        for (int col = 0; col < m1.col_count; ++col) {
+            result.values[row][col] = m1.values[row][col] + m2.values[row][col];
+        }
+    }
+    return result;
+}
+
+Matrix operator*(Matrix &m1, Matrix &m2) {
+    Matrix result(m1.row_count, m1.col_count);
+    for (int row = 0; row < m1.row_count; ++row) {
+        for (int col = 0; col < m1.col_count; ++col) {
+            result.values[row][col] = m1.values[row][col] + m2.values[row][col];
+        }
+    }
     return result;
 }
