@@ -1,1 +1,1 @@
-# mipt-cpp
+# mipt - C++
