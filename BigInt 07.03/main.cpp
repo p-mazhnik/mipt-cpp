@@ -6,8 +6,9 @@
 
 int main() {
     BigInt b1("1037812047196842163142241");
-    BigInt b0("10");
-    BigInt b2 = 214;
+    BigInt b0;
+    std::cin >> b0;
+    //BigInt b2 = 214;
     std::cout << b1 << std::endl;
     std::cout << b0 << std::endl;
     std::cout << "b1 + b2 = " << b1 + b0 << std::endl;

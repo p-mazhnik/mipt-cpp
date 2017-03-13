@@ -21,6 +21,7 @@ BigInt::BigInt(const char *string) {
         char *c = new char[3];
         std::memcpy(c, string, (l % 3));
         this->values[0] = atoi(c);
+        //std::cout << this->values[0] << std::endl;
         delete []c;
         ++j;
     }
@@ -29,7 +30,6 @@ BigInt::BigInt(const char *string) {
         std::memcpy(c, string + i, 3);
         //::cout << c << std::endl;
         this->values[j] = atoi(c);
-        //std::cout << this->values[j] << std::endl;
         delete []c;
     }
 }
@@ -73,7 +73,7 @@ BigInt BigInt::operator+(const BigInt &that) const {
         temp.values[0] += 1;
         temp.values[1] %= 1000;
         result = temp;
-        delete []temp.values;
+        //delete []temp.values;
     }
     return result;
 }
@@ -81,9 +81,38 @@ BigInt BigInt::operator+(const BigInt &that) const {
 std::ostream &operator<<(std::ostream &out, const BigInt &t) {
     for (int i = 0; i < t.length; ++i) {
         if(t.values[i] < 100 && i != 0){
+            if(t.values[i] < 10){
+                out << 0;
+            }
             out << 0;
         }
         out << t.values[i];
     }
     return out;
+}
+
+std::istream &operator>>(std::istream &in, BigInt &t) {
+    char *string = new char[DEFAULT_CAPACITY];
+    in >> string;
+    t = string;
+    delete []string;
+    return in;
+}
+
+BigInt &BigInt::operator=(const char *string) {
+    BigInt temp(string);
+    delete []this->values;
+    this->values = new int[temp.length];
+    this->length = temp.length;
+    std::memcpy(this->values, temp.values, sizeof(int) * temp.length);
+    //delete []temp.values;
+    return *this;
+}
+
+BigInt &BigInt::operator=(const BigInt &that) {
+    delete []this->values;
+    this->length = that.length;
+    this->values = new int[this->length];
+    std::memcpy(this->values, that.values, sizeof(int) * that.length);
+    return *this;
 }

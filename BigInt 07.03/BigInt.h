@@ -9,7 +9,7 @@
 #include <cstring>
 #include <cstdlib>
 
-#define DEFAULT_CAPACITY 10
+#define DEFAULT_CAPACITY 100
 
 class BigInt {
 private:
@@ -22,15 +22,16 @@ public:
     ~BigInt();
 
     BigInt operator+(const BigInt &) const;
-    friend BigInt operator+(const char[], const BigInt &);
-    BigInt operator-(const BigInt &) const;
-    friend BigInt operator-(const char[], const BigInt &);
-    BigInt& operator=(const char *);
-    BigInt operator*(const BigInt &) const;
-    friend BigInt operator*(int, const BigInt &);
+   // friend BigInt operator+(const char[], const BigInt &);
+    //BigInt operator-(const BigInt &) const;
+    //friend BigInt operator-(const char[], const BigInt &);
+    BigInt &operator=(const char *);
+    BigInt &operator=(const BigInt &);
+    //BigInt operator*(const BigInt &) const;
+    //friend BigInt operator*(int, const BigInt &);
 
     friend std::ostream &operator<<(std::ostream &, const BigInt &);
-    friend std::istream &operator>>(std::istream &, const BigInt &);
+    friend std::istream &operator>>(std::istream &, BigInt &);
 };
 
 #endif //MIPT_CPP_BIGINT_H
