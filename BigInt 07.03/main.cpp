@@ -9,7 +9,8 @@ int main() {
     BigInt b0;
     std::cin >> b1;
     std::cin >> b0;
-    BigInt b2 = 111;
+    BigInt b2("333");
+    b2 = 111999;
     std::cout << b2 << std::endl;
     std::cout << b1 << std::endl;
     std::cout << b0 << std::endl;

@@ -130,14 +130,16 @@ void BigInt::print() const {
     std::cout << std::endl;
 }
 
-BigInt &BigInt::operator=(int a) {
+/*BigInt &BigInt::operator=(int a) {
     char *string = new char[DEFAULT_CAPACITY];
     itoa(a, string, 10);
     *this = string;
     return *this;
-}
+}*/
 
 BigInt::BigInt(int value) {
     this->values = new int[1];
-    *this = value;
+    char *string = new char[DEFAULT_CAPACITY];
+    itoa(value, string, 10);
+    *this = string;
 }

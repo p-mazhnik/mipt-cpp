@@ -26,7 +26,7 @@ public:
     friend BigInt operator+(const char[], const BigInt &);
     BigInt operator-(const BigInt &) const;
     friend BigInt operator-(const char[], const BigInt &);
-    BigInt &operator=(int);
+   // BigInt &operator=(int);
     BigInt &operator=(const char *);
     BigInt &operator=(const BigInt &);
     BigInt operator*(const BigInt &) const;
