@@ -17,19 +17,22 @@ private:
     size_t length;
 public:
     BigInt(size_t length = DEFAULT_CAPACITY);
+    BigInt(int value);
     BigInt(const char *);
     BigInt(const BigInt &);
     ~BigInt();
 
     BigInt operator+(const BigInt &) const;
-   // friend BigInt operator+(const char[], const BigInt &);
-    //BigInt operator-(const BigInt &) const;
-    //friend BigInt operator-(const char[], const BigInt &);
+    friend BigInt operator+(const char[], const BigInt &);
+    BigInt operator-(const BigInt &) const;
+    friend BigInt operator-(const char[], const BigInt &);
+    BigInt &operator=(int);
     BigInt &operator=(const char *);
     BigInt &operator=(const BigInt &);
-    //BigInt operator*(const BigInt &) const;
-    //friend BigInt operator*(int, const BigInt &);
+    BigInt operator*(const BigInt &) const;
+    friend BigInt operator*(int, const BigInt &);
 
+    void print() const;
     friend std::ostream &operator<<(std::ostream &, const BigInt &);
     friend std::istream &operator>>(std::istream &, BigInt &);
 };

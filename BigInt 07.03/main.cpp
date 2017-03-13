@@ -5,13 +5,18 @@
 #include "BigInt.h"
 
 int main() {
-    BigInt b1("1037812047196842163142241");
+    BigInt b1; //("1037812047196842163142241");
     BigInt b0;
+    std::cin >> b1;
     std::cin >> b0;
-    //BigInt b2 = 214;
+    BigInt b2 = 111;
+    std::cout << b2 << std::endl;
     std::cout << b1 << std::endl;
     std::cout << b0 << std::endl;
-    std::cout << "b1 + b2 = " << b1 + b0 << std::endl;
+    std::cout << "b1 + b0 = " << b1 + b0 << std::endl;
+    std::cout << "b0 + b1 = " << b0 + b1 << std::endl;
+    std::cout << "b2 + b0 = " << b2 + b0 << std::endl;
+    std::cout << "b0 + b2 = " << b0 + b2 << std::endl;
     //std::cout << "b1 - b2 = " << b1 - b2 << std::endl;
     //std::cout << "b1 * b2 = " << b1 * b2 << std::endl;
     //std::cout << "b1 / b2 = " << b1 / b2 << std::endl;

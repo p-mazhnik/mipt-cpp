@@ -53,17 +53,23 @@ BigInt BigInt::operator+(const BigInt &that) const {
     if(this->length > that.length) {
         result = *this;
         flag = 1;
+        std::cout << "that: ";
+        that.print();
 
     } else{
         result = that;
         flag = 0;
+        std::cout << "this: ";
+        this->print();
     }
-    for (int i = 0, j = 0; i < l_max; ++i) {
-        if(flag) result.values[i + d_l] += that.values[i];
-        else result.values[i + d_l] += this->values[i];
-        if (result.values[i + d_l] >= 1000 && i + d_l > 0){
-            result.values[i + d_l - 1] += 1;
-            result.values[i + d_l] %= 1000;
+    std::cout << "temp_result: ";
+    result.print();
+    for (size_t i = l_max - 1; i >= 0 && i < l_max; --i) {
+        if(flag && i - d_l >= 0) result.values[i] += that.values[i - d_l];
+        else if (i - d_l >= 0) result.values[i] += this->values[i - d_l];
+        if (result.values[i] >= 1000 && i > 0){
+            result.values[i - 1] += 1;
+            result.values[i] %= 1000;
         }
     }
     if(result.values[0] >= 1000){
@@ -73,8 +79,9 @@ BigInt BigInt::operator+(const BigInt &that) const {
         temp.values[0] += 1;
         temp.values[1] %= 1000;
         result = temp;
-        //delete []temp.values;
     }
+    std::cout << "result: ";
+    result.print();
     return result;
 }
 
@@ -105,7 +112,6 @@ BigInt &BigInt::operator=(const char *string) {
     this->values = new int[temp.length];
     this->length = temp.length;
     std::memcpy(this->values, temp.values, sizeof(int) * temp.length);
-    //delete []temp.values;
     return *this;
 }
 
@@ -115,4 +121,23 @@ BigInt &BigInt::operator=(const BigInt &that) {
     this->values = new int[this->length];
     std::memcpy(this->values, that.values, sizeof(int) * that.length);
     return *this;
+}
+
+void BigInt::print() const {
+    for (int i = 0; i < this->length; ++i) {
+        std::cout << this->values[i] << ' ';
+    }
+    std::cout << std::endl;
+}
+
+BigInt &BigInt::operator=(int a) {
+    char *string = new char[DEFAULT_CAPACITY];
+    itoa(a, string, 10);
+    *this = string;
+    return *this;
+}
+
+BigInt::BigInt(int value) {
+    this->values = new int[1];
+    *this = value;
 }
