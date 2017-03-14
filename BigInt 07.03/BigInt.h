@@ -14,19 +14,21 @@
 class BigInt {
 private:
     int *values;
-    size_t length;
+    int length;
+
+    void set_length(const int);
 public:
-    BigInt(size_t length = DEFAULT_CAPACITY);
-    BigInt(int value);
+   // BigInt(int length = DEFAULT_CAPACITY);
+    BigInt(int value = 0);
     BigInt(const char *);
     BigInt(const BigInt &);
     ~BigInt();
 
     BigInt operator+(const BigInt &) const;
-    friend BigInt operator+(const char[], const BigInt &);
+    //friend BigInt operator+(const char[], const BigInt &);
     BigInt operator-(const BigInt &) const;
-    friend BigInt operator-(const char[], const BigInt &);
-   // BigInt &operator=(int);
+    //friend BigInt operator-(const char[], const BigInt &);
+    //BigInt &operator=(int);
     BigInt &operator=(const char *);
     BigInt &operator=(const BigInt &);
     BigInt operator*(const BigInt &) const;
