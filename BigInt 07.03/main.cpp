@@ -10,14 +10,14 @@ int main() {
     std::cin >> b1;
     std::cin >> b0;
     BigInt b2("333");
-    b2 = 111999;
-    std::cout << b2 << std::endl;
+//    b2 = 111999;
+   // std::cout << b2 << std::endl;
     std::cout << b1 << std::endl;
     std::cout << b0 << std::endl;
     std::cout << "b1 + b0 = " << b1 + b0 << std::endl;
     std::cout << "b0 + b1 = " << b0 + b1 << std::endl;
-    std::cout << "b2 + b0 = " << b2 + b0 << std::endl;
-    std::cout << "b0 + b2 = " << b0 + b2 << std::endl;
+    std::cout << "b1 - b0 = " << b1 - b0 << std::endl;
+    std::cout << "b0 - b1 = " << b0 - b1 << std::endl;
     //std::cout << "b1 - b2 = " << b1 - b2 << std::endl;
     //std::cout << "b1 * b2 = " << b1 * b2 << std::endl;
     //std::cout << "b1 / b2 = " << b1 / b2 << std::endl;
