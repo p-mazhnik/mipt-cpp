@@ -8,14 +8,16 @@ void BigInt::set_length(const int new_length) {
     if(new_length > LIM_LENGTH){
         throw BigIntegerOverflow();
     }
-    if (this->length != 0) {
+    if (this->length != 0 && this->length != new_length) {
         delete []this->values;
     }
+    if (this->length != new_length) {
+        this->values = new int[new_length];
+    }
     this->length = new_length;
-    this->values = new int[this->length];
 }
 
-BigInt::BigInt(const long long value) { //конструктор от int
+BigInt::BigInt(const long long value) { //конструктор от числа
     this->sign = 1;
     this->length = 0;
     int len_s = 0;
@@ -37,7 +39,6 @@ BigInt::BigInt(const long long value) { //конструктор от int
         temp_value /= 10;
     }
     string[len_s] = 0;
-    //std::cout << "Ctr int" << std::endl;
     *this = string;
 }
 
@@ -73,13 +74,11 @@ BigInt::BigInt(const char *string) { //конструктор от строки
         this->values[j] = atoi(c);
         delete []c;
     }
-    //std::cout << "Ctr string" << std::endl;
 }
 
 BigInt::BigInt(const BigInt &that) { //конструктор копирования
     this->length = 0;
     *this = that;
-    //std::cout << "Ctr cpy" << std::endl;
 }
 
 BigInt::~BigInt() {
@@ -144,16 +143,16 @@ BigInt BigInt::abs_sum(const BigInt &that) const {
         if(flag && i - d_l >= 0) result.values[i] += that.values[i - d_l];
         else if (i - d_l >= 0) result.values[i] += this->values[i - d_l];
         if (result.values[i] >= MAX_VALUE && i > 0){
-            result.values[i - 1] += 1;
+            result.values[i - 1] += result.values[i] / MAX_VALUE;
             result.values[i] %= MAX_VALUE;
         }
     }
-    if(result.values[0] >= MAX_VALUE){
+    while(result.values[0] >= MAX_VALUE){
         BigInt temp;
         temp.set_length(l_max + 1);
         temp.values[0] = 0;
         std::memcpy(temp.values + 1, result.values, sizeof(int) * result.length);
-        temp.values[0] += 1;
+        temp.values[0] += temp.values[1] / MAX_VALUE;
         temp.values[1] %= MAX_VALUE;
         result = temp;
     }
@@ -306,48 +305,28 @@ void BigInt::print() const {
     std::cout << std::endl;
 }
 
-BigInt set_zero(int value, int k) {
-    BigInt result;
-    if(k == 0 || value == 0){
-        result = (long long) value;
-        //result.print();
-        return result;
-    }
-    int len_s = k;
-    int temp_value;
-    for (temp_value = value; temp_value != 0; ++len_s) {
-        temp_value /= 10;
-    }
-    char *string = new char[len_s + 1];
-    for (int i = len_s - 1; i > len_s - k - 1; --i) {
-        string[i] = '0';
-    }
-    for (int i = len_s - k - 1; i >= 0; --i) {
-        string[i] = (value % 10) + '0';
-        value /= 10;
-    }
-    string[len_s] = 0;
-    result = string;
-    return result;
-}
-
 BigInt BigInt::operator*(const BigInt &that) const {
     BigInt result;
     int l_max = std::max(this->length, that.length);
     int l_min = std::min(this->length, that.length);
-    bool flag = *this > that;
-    for (int i = l_max - 1, k1 = 0; i >= 0; --i) {
-        for (int j = l_min - 1, k2 = 0; j >= 0; --j) {
-            int k = k1 + k2;
-            if(flag) {
-                result += set_zero(this->values[i] * that.values[j], k);
-            }
-            else {
-                result += set_zero(this->values[j] * that.values[i], k);
-            }
-            k2 += BASE;
+    BigInt a;
+    a.set_length(this->length + that.length);
+    a.length = l_max;
+    a = abs_max(*this, that);
+    BigInt b = abs_min(*this, that);
+    if(a == result || b == result){
+        return result;
+    }
+    BigInt temp(a);
+    a.sign = b.sign = 1;
+    for (int i = l_min - 1; i >= 0; --i) {
+        for (int j = l_max - 1; j >= 0; --j) {
+            temp.values[j] *= b.values[i];
         }
-        k1 += BASE;
+        result += temp;
+        ++a.length;
+        a.values[a.length - 1] = 0;
+        temp = a;
     }
     if(result.length > LIM_LENGTH){
         throw BigIntegerOverflow();
@@ -373,46 +352,56 @@ BigInt BigInt::operator/(const BigInt &that) const {
         return result;
     }
     BigInt temp;
-    temp.set_length(that.length + 1);
+    BigInt zero;
+    temp.set_length(that.length + 200);
+    int  temp_capacity;
     int l_max = this->length;
     int l_min = that.length;
     int d_l = l_max - l_min;
-    result.set_length(d_l + 1);
+    result.set_length(d_l + 200);
     int sign = this->sign * that.sign;
     BigInt rest = this->values[0];
-    int n = d_l + 1;
-    for (int i = 0; i < n; ++i) {
-        temp.length = l_min;
-        for (int j = 0; j < l_min; ++j) {
+    int i = 0;
+    for (int m = 0; m < l_max; ++i, ++m) {
+        temp_capacity = l_min;
+        for (int j = 0; j < temp_capacity && m < l_max; ++j, ++m) {
             if(j < rest.length && rest.values[0] != 0){
-                if(j >= 1){
-                    ++n;
-                    ++result.length;
+                if(i != 0) {
+                    --m;
                 }
                 temp.values[j] = rest.values[j];
+                temp.length = j + 1;
+                if(j == temp_capacity - 1 && !(temp >= that)) {
+                    ++temp_capacity;
+                }
             }
             else {
-                temp.values[j] = this->values[j + i];
+                temp.values[j] = this->values[m];
+                temp.length = j + 1;
+                if(!(temp >= that)){
+                    if(i != 0){
+                        result.values[i] = 0;
+                        if(m + 1 != l_max) ++i;
+                    }
+                    if(j == temp_capacity - 1 && temp != zero){
+                        ++temp_capacity;
+                    }
+                }
+                if(temp.values[0] == 0){
+                    --j;
+                }
             }
         }
-        if(!(temp >= that)){
-            ++temp.length;
-            temp.values[l_min] = this->values[l_min + i];
-            --n;
-            --result.length;
-        }
+        --m;
         int k = 1;
         while(temp >= that * k){
             ++k;
         }
         --k;
         rest = temp - that * k * that.sign;
-        result.values[i] = k;
-        if(rest.values[0] == 0 && i + 1 != n){
-            ++i;
-            result.values[i] = 0;
-        }
+        if(m < l_max) result.values[i] = k;
     }
+    result.length = i;
     result.sign = sign;
     return result;
 }
@@ -425,8 +414,8 @@ BigInt operator/(const long long a, const BigInt &b) {
     return (BigInt(a) / b);
 }
 
-BigInt BigInt::operator%(const BigInt &that) const {
-    return (*this - (*this / that) * that);
+BigInt operator%(const BigInt &a, const BigInt &b) {
+    return (a - (a / b) * b);
 }
 
 BigInt &BigInt::operator+=(const BigInt &that) {

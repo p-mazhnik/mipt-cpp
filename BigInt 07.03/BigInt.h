@@ -10,8 +10,8 @@
 #include <cstdlib>
 #include <stdexcept>
 
-#define BASE 3
-#define MAX_VALUE 1000
+#define BASE 2
+#define MAX_VALUE 100
 #define LIM_LENGTH ((20000 / BASE) + 1)
 
 class BigInt {
@@ -23,7 +23,6 @@ private:
     void set_length(const int);
     BigInt abs_sum(const BigInt &) const;
     BigInt abs_sub(const BigInt &) const;
-    friend BigInt set_zero(int, int);
 public:
     BigInt(const long long value = 0);
     BigInt(const char *);
@@ -58,7 +57,7 @@ public:
     BigInt operator/(const long long) const;
     friend BigInt operator/(const long long, const BigInt &);
 
-    BigInt operator%(const BigInt &) const;
+    friend BigInt operator%(const BigInt &, const BigInt &);
 
     friend BigInt nod(const BigInt &, const BigInt &);
     friend BigInt sqrt(const BigInt &);
