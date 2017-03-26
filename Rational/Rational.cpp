@@ -2,7 +2,6 @@
 // Created by pavel on 26.03.2017.
 //
 
-#include <cstring>
 #include "Rational.h"
 
 Rational::Rational(int p, int q) : p(p), q(q) {
@@ -149,61 +148,21 @@ bool operator>(const Rational &a, const Rational &b) {
     return a.p * b.q > a.q * b.p;
 }
 
-/*bool operator>(const Rational &a, const int &b) {
-    return a > Rational(b);
-}
-
-bool operator>(const int &a, const Rational &b) {
-    return Rational(a) > b;
-}*/
-
 bool operator==(const Rational &a, const Rational &b) {
     return (a.p * b.q == a.q * b.p);
 }
-
-/*bool operator==(const Rational &a, const int &b) {
-    return a == Rational(b);
-}
-
-bool operator==(const int &a, const Rational &b) {
-    return Rational(a) == b;
-}*/
 
 bool operator!=(const Rational &a, const Rational &b) {
     return !(a == b);
 }
 
-/*bool operator!=(const Rational &a, const int &b) {
-    return !(a == b);
-}
-
-bool operator!=(const int &a, const Rational &b) {
-    return !(a == b);
-}*/
-
 bool operator>=(const Rational &a, const Rational &b) {
     return (a == b || a > b);
 }
 
-/*bool operator>=(const Rational &a, const int &b) {
-    return (a == b || a > b);
-}
-
-bool operator>=(const int &a, const Rational &b) {
-    return (a == b || a > b);
-}*/
-
 bool operator<=(const Rational &a, const Rational &b) {
     return !(a > b);
 }
-
-/*bool operator<=(const Rational &a, const int &b) {
-    return !(a > b);
-}
-
-bool operator<=const int &a, const Rational &b) {
-    return !(a > b);
-}*/
 
 bool operator<(const Rational &a, const Rational &b) {
     return !(a >= b);

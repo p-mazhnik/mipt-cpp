@@ -54,32 +54,16 @@ public:
     friend std::istream &operator>>(std::istream &, Rational &);
 
     Rational &operator+=(const Rational &);
-   // Rational &operator+=(const int &);
     Rational &operator-=(const Rational &);
-    //Rational &operator-=(const int &);
     Rational &operator*=(const Rational &);
-    //Rational &operator*=(const int &);
     Rational &operator/=(const Rational &);
-    //Rational &operator/=(const int &);
 
     friend bool operator>(const Rational &, const Rational &);
-    //friend bool operator>(const Rational &, const int &);
-    //friend bool operator>(const int &, const Rational &);
     friend bool operator>=(const Rational &, const Rational &);
-   // friend bool operator>=(const Rational &, const int &);
-    //friend bool operator>=(const int &, const Rational &);
     friend bool operator<(const Rational &, const Rational &);
-    //friend bool operator<(const Rational &, const int &);
-    //friend bool operator<(const int &, const Rational &);
     friend bool operator<=(const Rational &, const Rational &);
-    //friend bool operator<=(const Rational &, const int &);
-    //friend bool operator<=(const int &, const Rational &);
     friend bool operator==(const Rational &, const Rational &);
-    //friend bool operator==(const Rational &, const int &);
-    //friend bool operator==(const int &, const Rational &);
     friend bool operator!=(const Rational &, const Rational &);
-    //friend bool operator!=(const Rational &, const int &);
-    //friend bool operator!=(const int &, const Rational &);
 };
 
 class RationalDivisionByZero : std::logic_error {
