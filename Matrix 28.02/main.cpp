@@ -3,7 +3,7 @@
 
 int main()
 {
-    Matrix m1(2, 3), m2(2, 3);
+    Matrix<int> m1(2, 3), m2(2, 3);
     std::cout << "First matrix: " << std::endl;
     std::cin >> m1;
     std::cout << "Second matrix: " << std::endl;
