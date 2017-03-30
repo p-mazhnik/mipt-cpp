@@ -5,8 +5,7 @@
 #include "BigInt.h"
 
 int main() {
-    BigInt a;
-    BigInt b;
-    std::cin >> a >> b;
-    std::cout << a / b << ' ' << a % b;
+    BigInt a = "1243241234134501834751384750145";
+    BigInt b = a;
+    b.print();
 }
