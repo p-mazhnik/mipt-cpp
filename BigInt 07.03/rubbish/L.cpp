@@ -1,8 +1,95 @@
 //
 // Created by pavel on 12.03.2017.
 //
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <stdexcept>
 
-#include "BigInt.h"
+#define BASE 2
+#define MAX_VALUE 100
+#define LIM_LENGTH ((20000 / BASE) + 1)
+
+class BigInt {
+private:
+    int *values;
+    int length;
+    int sign;
+
+    void set_length(const int);
+    BigInt abs_sum(const BigInt &) const;
+    BigInt abs_sub(const BigInt &) const;
+
+public:
+    BigInt(const long long value = 0);
+    BigInt(const char *);
+    BigInt(const BigInt &);
+    ~BigInt();
+
+    bool operator>(const BigInt &) const;
+    bool operator==(const BigInt &) const;
+    friend bool operator!=(const BigInt &, const BigInt &);
+    bool operator>=(const BigInt &) const;
+    friend const BigInt &abs_max(const BigInt &, const BigInt &);
+    friend const BigInt &abs_min(const BigInt &, const BigInt &);
+
+    BigInt &operator=(const long long);
+    BigInt &operator=(const char *);
+    BigInt &operator=(const BigInt &);
+
+    BigInt operator+(const BigInt &) const;
+    BigInt operator+(const long long) const;
+    friend BigInt operator+(const long long, const BigInt &);
+
+    BigInt operator-(const BigInt &) const;
+    BigInt operator-(); //унарный минус
+    BigInt operator-(const long long) const;
+    friend BigInt operator-(const long long, const BigInt &);
+
+    BigInt operator*(const BigInt &) const;
+    BigInt operator*(const long long) const;
+    friend BigInt operator*(const long long, const BigInt &);
+
+    BigInt operator/(const BigInt &) const;
+    BigInt operator/(const long long) const;
+    friend BigInt operator/(const long long, const BigInt &);
+
+    BigInt operator%(const BigInt &) const;
+
+    friend BigInt nod(const BigInt &, const BigInt &);
+    friend BigInt sqrt(const BigInt &);
+
+    BigInt &operator+=(const BigInt &);
+    BigInt &operator+=(const long long);
+    BigInt &operator-=(const BigInt &);
+    BigInt &operator-=(const long long);
+    BigInt &operator*=(const BigInt &);
+    BigInt &operator*=(const long long);
+    BigInt &operator/=(const BigInt &);
+    BigInt &operator/=(const long long);
+
+    BigInt &operator++();
+    BigInt operator++(int);
+    BigInt &operator--();
+    BigInt operator--(int);
+
+    void print() const;
+    friend std::ostream &operator<<(std::ostream &, const BigInt &);
+    friend std::istream &operator>>(std::istream &, BigInt &);
+
+};
+
+class BigIntegerDivisionByZero : std::logic_error {
+public:
+    BigIntegerDivisionByZero() : std::logic_error("Division by zero") {};
+};
+
+class BigIntegerOverflow : std::length_error {
+public:
+    BigIntegerOverflow() : std::length_error("Overflow") {};
+};
+
+int main() {}
 
 void BigInt::set_length(const int new_length) {
     if(new_length > LIM_LENGTH){
@@ -67,11 +154,12 @@ BigInt::BigInt(const char *string) { //конструктор от строки
         delete []c;
         ++j;
     }
-    char c[BASE + 1];
     for (int i = l % BASE; i < l; i += BASE, ++j) {
+        char *c = new char[BASE + 1];
         std::memcpy(c, string + i, BASE);
         c[BASE] = 0;
         this->values[j] = atoi(c);
+        delete []c;
     }
 }
 
@@ -120,7 +208,12 @@ bool BigInt::operator>=(const BigInt &that) const {
     return (*this > that || *this == that);
 }
 const BigInt & abs_max(const BigInt &a, const BigInt &b){
-    return a > b ? a : b;
+    if(a > b){
+        return a;
+    }
+    else{
+        return b;
+    }
 }
 
 const BigInt & abs_min(const BigInt &a, const BigInt &b){
@@ -408,8 +501,8 @@ BigInt operator/(const long long a, const BigInt &b) {
     return (BigInt(a) / b);
 }
 
-BigInt operator%(const BigInt &a, const BigInt &b) {
-    return (a - (a / b) * b);
+BigInt BigInt::operator%(const BigInt &that) const {
+    return (*this - (*this / that) * that);
 }
 
 BigInt &BigInt::operator+=(const BigInt &that) {
