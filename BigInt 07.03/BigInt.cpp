@@ -67,12 +67,11 @@ BigInt::BigInt(const char *string) { //конструктор от строки
         delete []c;
         ++j;
     }
+    char c[BASE + 1];
     for (int i = l % BASE; i < l; i += BASE, ++j) {
-        char *c = new char[BASE + 1];
         std::memcpy(c, string + i, BASE);
         c[BASE] = 0;
         this->values[j] = atoi(c);
-        delete []c;
     }
 }
 
@@ -121,12 +120,7 @@ bool BigInt::operator>=(const BigInt &that) const {
     return (*this > that || *this == that);
 }
 const BigInt & abs_max(const BigInt &a, const BigInt &b){
-    if(a > b){
-        return a;
-    }
-    else{
-        return b;
-    }
+    return a > b ? a : b;
 }
 
 const BigInt & abs_min(const BigInt &a, const BigInt &b){
