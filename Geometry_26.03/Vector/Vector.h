@@ -30,7 +30,6 @@ public:
     Vector operator-(const Vector &) const;
 
     double operator*(const Vector &) const; //скалярное произведение
-    //Vector operator*(const double) const;
     friend double vector_mult(const Vector &, const Vector &); //векторное произведение
     friend double triangle_square(const Vector &, const Vector &);
 
