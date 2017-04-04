@@ -134,7 +134,7 @@ void G();
 void H();
 
 int main(){
-    F();
+    G();
 }
 
 void C(){
@@ -385,6 +385,11 @@ bool Segment::point_contains(const Point &p) const{
 bool Segment::segment_cross(const Segment &s) const {
     Line l1(s.get_begin(), s.get_end());
     Line l2(this->get_begin(), this->get_end());
+    if(l1.segment_cross(*this) && l2.segment_cross(s) && line_parallel(l1, l2) &&
+            !(this->point_contains(s.get_begin()) || this->point_contains(s.get_end()) ||
+       s.point_contains(this->get_begin()) || s.point_contains(this->get_end()))){
+        return 0;
+    }
     return (l1.segment_cross(*this) && l2.segment_cross(s));
 }
 
