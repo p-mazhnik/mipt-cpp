@@ -118,4 +118,9 @@ public:
     bool point_contains(const Point &) const;
     bool segment_cross(const Segment &) const;
 };
+
+class Polygon : public Geometry{
+private:
+
+};
 #endif //MIPT_CPP_VECTOR_H
