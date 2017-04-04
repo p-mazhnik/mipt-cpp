@@ -2,7 +2,199 @@
 // Created by pavel on 26.03.2017.
 //
 
-#include "Vector.h"
+#ifndef MIPT_CPP_VECTOR_H
+#define MIPT_CPP_VECTOR_H
+
+#include <iostream>
+#include <cstdlib>
+#include <iomanip>
+#include <cmath>
+
+class Point;
+class Segment;
+
+class Vector {
+private:
+    double x;
+    double y;
+public:
+    Vector(const Point &p1, const Point &p2);
+    Vector(const double x = 0, const double y = 0);
+    Vector(const Vector &);
+
+    double get_x() const;
+    double get_y() const;
+
+    Vector &operator=(const Vector &);
+    Vector operator+(const Vector &) const;
+    Vector operator-(const Vector &) const;
+
+    double operator*(const Vector &) const; //скалярное произведение
+    //Vector operator*(const double) const;
+    friend double vector_mult(const Vector &, const Vector &); //векторное произведение
+    friend double triangle_square(const Vector &, const Vector &);
+
+    friend double abs(const Vector &);
+
+    friend std::ostream &operator<<(std::ostream &, const Vector &);
+    friend std::istream &operator>>(std::istream &, Vector &);
+};
+
+class Geometry{
+public:
+    virtual void shift(const Vector &) = 0;
+    virtual bool point_contains(const Point &) const = 0;
+    virtual bool segment_cross(const Segment &) const = 0;
+};
+
+class Point : public Geometry{
+private:
+    double x;
+    double y;
+public:
+    Point(const double x = 0, const double y = 0);
+    Point(const Point &);
+
+    Point &operator=(const Point &);
+
+    double get_x() const;
+    double get_y() const;
+
+    friend std::ostream &operator<<(std::ostream &, const Point &);
+    friend std::istream &operator>>(std::istream &, Point &);
+
+    void shift(const Vector &);
+    bool point_contains(const Point &) const;
+    bool segment_cross(const Segment &) const;
+};
+
+class Line : public Geometry{
+private:
+    double a, b, c;
+public:
+    Line(const double a = 0, const double b = 0, const double c = 0);
+    Line(const Point &, const Point &);
+
+    Vector get_vector() const;
+
+    friend bool line_parallel(const Line &, const Line &);
+    friend double line_distance (const Line &, const Line &);
+    double point_distance(const Point &) const;
+    friend Point point_cross(const Line &, const Line &);
+
+    friend std::ostream &operator<<(std::ostream &, const Line &);
+    friend std::istream &operator>>(std::istream &, Line &);
+
+    void shift(const Vector &);
+    bool point_contains(const Point &) const;
+    bool segment_cross(const Segment &) const;
+};
+
+class Segment : public Geometry{
+private:
+    Point a, b;
+public:
+    Segment();
+    Segment(const Point &a, const Point &b);
+
+    Point get_end() const;
+    Point get_begin() const;
+
+    friend double segment_distance (const Segment &, const Segment &);
+    double point_distance (const Point &) const;
+    friend std::istream &operator>>(std::istream &, Segment &);
+    void shift(const Vector &);
+    bool point_contains(const Point &) const;
+    bool segment_cross(const Segment &) const;
+};
+
+class Ray : public Geometry{
+private:
+    Point begin, x;
+public:
+    Ray(const Point &, const Point &);
+    double point_distance(const Point &) const;
+    void shift(const Vector &);
+    bool point_contains(const Point &) const;
+    bool segment_cross(const Segment &) const;
+};
+#endif //MIPT_CPP_VECTOR_H
+//
+// Created by pavel on 30.03.2017.
+//
+
+using namespace std;
+
+void C();
+void B();
+void D();
+void E();
+void F();
+void G();
+void H();
+
+int main(){
+    F();
+}
+
+void C(){
+    Line l1, l2;
+    cin >> l1 >> l2;
+    cout << fixed << setprecision(10) << l1.get_vector() << '\n' << l2.get_vector() << '\n';
+    if(line_parallel(l1, l2)){
+        cout << line_distance(l1, l2);
+    } else{
+        cout << point_cross(l1, l2);
+    }
+}
+
+void B(){
+    Vector v1, v2;
+    cin >> v1 >> v2;
+    cout << fixed << setprecision(6) << abs(v1) << ' ' << abs(v2) << '\n';
+    cout << v1 + v2 << '\n';
+    cout << (v1 * v2) << ' ' << vector_mult(v1, v2) << '\n';
+    cout << triangle_square(v1, v2);
+}
+
+void D(){
+    Point A, B, C;
+    cin >> C >> A >> B;
+    Line l(A, B);
+    Segment s(A, B);
+    Ray r(A, B);
+    l.point_contains(C) ? cout << "YES" << '\n' : cout << "NO" << '\n';
+    r.point_contains(C) ? cout << "YES" << '\n' : cout << "NO" << '\n';
+    s.point_contains(C) ? cout << "YES" : cout << "NO";
+
+}
+
+void E(){
+    Point A, B, C;
+    cin >> C >> A >> B;
+    Line l(A, B);
+    Segment s(A, B);
+    Ray r(A, B);
+    cout << fixed << setprecision(6) << l.point_distance(C) << '\n';
+    cout << r.point_distance(C) << '\n';
+    cout << s.point_distance(C);
+
+}
+
+void F(){
+    Segment s1, s2;
+    cin >> s1 >> s2;
+    s1.segment_cross(s2) ? cout << "YES" << '\n' : cout << "NO" << '\n';
+}
+
+void G(){
+    Segment s1, s2;
+    cin >> s1 >> s2;
+    cout << fixed << setprecision(6) << segment_distance(s1, s2);
+}
+//
+// Created by pavel on 26.03.2017.
+//
 
 //--------VECTOR--------\\
 
@@ -122,9 +314,11 @@ bool line_parallel(const Line &l1, const Line &l2) {
 }
 
 Point point_cross(const Line &l1, const Line &l2) {
-    double x = (-l1.c * l2.b + l2.c * l1.b) / (l1.a * l2.b - l2.a * l1.b);
-    double y = (-l1.a * l2.c + l2.a * l1.c) / (l1.a * l2.b - l2.a * l1.b);
-    return Point(x, y);
+    if(line_parallel(l1, l2) == 0) {
+        double x = (-l1.c * l2.b + l2.c * l1.b) / (l1.a * l2.b - l2.a * l1.b);
+        double y = (-l1.a * l2.c + l2.a * l1.c) / (l1.a * l2.b - l2.a * l1.b);
+        return Point(x, y);
+    }
 }
 
 double line_distance(const Line &l1, const Line &l2) {
@@ -145,7 +339,7 @@ std::ostream &operator<<(std::ostream &out, const Line &l) {
 }
 
 Line::Line(const Point &p1, const Point &p2) : a(p2.get_y() - p1.get_y()), b(p1.get_x() - p2.get_x()),
-    c(p1.get_y() * p2.get_x() - p1.get_x() * p2.get_y()) {}
+                                               c(p1.get_y() * p2.get_x() - p1.get_x() * p2.get_y()) {}
 
 double Line::point_distance(const Point &p) const {
     Line l2(this->a, this->b, -this->a * p.get_x() - this->b * p.get_y());
@@ -191,9 +385,6 @@ bool Segment::point_contains(const Point &p) const{
 bool Segment::segment_cross(const Segment &s) const {
     Line l1(s.get_begin(), s.get_end());
     Line l2(this->get_begin(), this->get_end());
-    if(line_parallel(l1, l2) && line_distance(l1, l2) == 0 && ){
-
-    }
     return (l1.segment_cross(*this) && l2.segment_cross(s));
 }
 
