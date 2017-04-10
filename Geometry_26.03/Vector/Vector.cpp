@@ -439,3 +439,19 @@ Polygon::Polygon(const Polygon &that) {
         this->vertices[i] = that.vertices[i];
     }
 }
+
+Polygon Polygon::graham() {
+    int n = this->n;
+    Polygon result(n);
+    int first, q, next;
+    // находим самую нижнюю из самых левых точек
+    first = 0;
+    for (int i = 1; i < n; ++i){
+        if (this->vertices[i].get_x() < this->vertices[first].get_x() ||
+            (this->vertices[i].get_x() == this->vertices[first].get_x() &&
+             this->vertices[i].get_y() < this->vertices[first].get_y())){
+            first = i;
+        }
+    }
+    return result;
+}

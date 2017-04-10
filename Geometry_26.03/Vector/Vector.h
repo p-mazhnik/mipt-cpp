@@ -131,7 +131,7 @@ public:
     friend std::istream &operator>>(std::istream &, Polygon &);
     friend std::ostream &operator<<(std::ostream &, const Polygon &);
     Polygon jarvis();
-    //Polygon graham();
+    Polygon graham();
     bool polygon_convex();
     void shift(const Vector &);
     bool point_contains(const Point &) const;
