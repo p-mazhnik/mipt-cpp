@@ -13,9 +13,12 @@ void E();
 void F();
 void G();
 void H();
+void I();
+void J();
+void K();
 
 int main(){
-    G();
+    K();
 }
 
 void C(){
@@ -72,4 +75,34 @@ void G(){
     Segment s1, s2;
     cin >> s1 >> s2;
     cout << fixed << setprecision(6) << segment_distance(s1, s2);
+}
+
+void H(){
+    Polygon pol;
+    cin >> pol;
+    pol.polygon_convex() ? cout << "YES" << '\n' : cout << "NO" << '\n';
+}
+
+void I(){
+    int n;
+    cin >> n;
+    Polygon pol(n);
+    Point p;
+    cin >> p;
+    cin >> pol;
+    pol.point_contains(p) ? cout << "YES" : cout << "NO";
+}
+
+void J(){
+    Polygon pol;
+    cin >> pol;
+    cout << pol.square();
+}
+
+void K(){
+    Polygon p1;
+    cin >> p1;
+    Polygon p2(p1.jarvis());
+    cout << p2 << endl;
+    cout << fixed << setprecision(10) << p2.square();
 }
