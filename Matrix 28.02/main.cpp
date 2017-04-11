@@ -21,7 +21,7 @@ int main() {
     B = A;
     cout << B << endl;
 
-    /*Rational r;
+    Rational r;
     cin >> r;
     Matrix<Rational> C(m, n), D(p, q);
     cin >> C >> D;
@@ -63,6 +63,5 @@ int main() {
     } catch (const MatrixIsDegenerateError&) {
         cout << "Cannot inverse S." << endl;
     }
-    */
     return 0;
 }
