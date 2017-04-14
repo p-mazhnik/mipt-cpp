@@ -17,8 +17,9 @@ private:
     T b;
 public:
     void refactor(int, int);
-    virtual double get_weight();
-    virtual float price();
+    double get_weight();
+    float price();
+
     void test_f (T);
 };
 
