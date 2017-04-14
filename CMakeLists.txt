@@ -3,6 +3,7 @@
  set(SOURCE_FILES
 
          test/X.cpp
+         test/Z.h
          )
 
  add_executable(mipt_cpp ${SOURCE_FILES})
