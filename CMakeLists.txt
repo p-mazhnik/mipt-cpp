@@ -3,6 +3,7 @@
  set(SOURCE_FILES
 
          test/X.cpp
+         test/Z.h
          test/Y.h
          )
 
