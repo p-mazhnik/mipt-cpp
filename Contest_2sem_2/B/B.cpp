@@ -25,7 +25,7 @@ int main() {
     }
     int m, b;
     std::cin >> m;
-    int *t = new int[m];
+    std::vector<int> t(m);
     for (int i = 0; i < m; ++i) {
         std::cin >> b;
         t[i] = 0;
@@ -37,5 +37,4 @@ int main() {
         }
         std::cout << t[i] << '\n';
     }
-    delete []t;
 }

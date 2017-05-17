@@ -16,50 +16,50 @@ public:
 template <typename value_type>
 class Deque : public std::deque<value_type> {
 public:
-    value_type my_pop_front();
-    value_type my_pop_back();
-    value_type my_front();
-    value_type my_back();
+    value_type pop_front();
+    value_type pop_back();
+    value_type front();
+    value_type back();
 };
 
 template <typename value_type>
-value_type Deque<value_type>::my_pop_front()
+value_type Deque<value_type>::pop_front()
 {
     if(this->empty()){
         throw DequeEmptyException();
     }
     value_type result = this->operator[](0);
-    this->pop_front();
+    this->std::deque<value_type>::pop_front();
     return result;
 }
 
 template <typename value_type>
-value_type Deque<value_type>::my_pop_back()
+value_type Deque<value_type>::pop_back()
 {
     if(this->empty()){
         throw DequeEmptyException();
     }
     value_type result = this->operator[](this->size() - 1);
-    this->pop_back();
+    this->std::deque<value_type>::pop_back();
     return result;
 }
 
 template <typename value_type>
-value_type Deque<value_type>::my_front()
+value_type Deque<value_type>::front()
 {
     if(this->empty()){
         throw DequeEmptyException();
     }
-    return this->front();
+    return this->std::deque<value_type>::front();
 }
 
 template <typename value_type>
-value_type Deque<value_type>::my_back()
+value_type Deque<value_type>::back()
 {
     if(this->empty()){
         throw DequeEmptyException();
     }
-    return this->back();
+    return this->std::deque<value_type>::back();
 }
 
 int main()
@@ -78,14 +78,14 @@ int main()
         }
         if (s == "pop_front" || s == "pop_back"){
             try {
-                std::cout << ((s == "pop_front") ? d.my_pop_front() : d.my_pop_back()) << std::endl;
+                std::cout << ((s == "pop_front") ? d.pop_front() : d.pop_back()) << std::endl;
             } catch (const DequeEmptyException& ex) {
                 std::cout << "error" << std::endl;
             }
         }
         if (s == "front" || s == "back"){
             try {
-                std::cout << (s == "front" ? d.my_front() : d.my_back()) << std::endl;
+                std::cout << (s == "front" ? d.front() : d.back()) << std::endl;
             } catch (const DequeEmptyException& ex) {
                 std::cout << "error" << std::endl;
             }

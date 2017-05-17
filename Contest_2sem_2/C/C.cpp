@@ -5,30 +5,17 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 int main() {
-    std::vector<int> v1;
-    std::vector<int> v2;
+    std::vector<int> v(2001);
     int n, a;
     std::cin >> n;
     for (int i = 0; i < n; ++i) {
         std::cin >> a;
-        std::vector<int>::iterator it = std::find(v1.begin(), v1.end(), a);
-        if(i == 0 || it == v1.end()) { //считаем кол-во повторений каждого цвета
-            v1.push_back(a);
-            v2.push_back(1);
-        }
-        else{
-            ++v2[it - v1.begin()];
-        }
+        ++v[a + 1000];
     }
-    int b, result = 0;
+    int b;
     std::cin >> b;
-    std::vector<int>::iterator it = std::find(v1.begin(), v1.end(), b);
-    if (it != v1.end()) {
-        result = v2[it - v1.begin()];
-    }
-    std::cout << result << '\n';
+    std::cout << v[b + 1000] << '\n';
     return 0;
 }

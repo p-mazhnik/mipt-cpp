@@ -6,27 +6,22 @@
 #include <set>
 
 int main() {
-    std::string s = "0";
     std::set<std::string> set;
-    for(int i = 0; s != "#"; ++i){
-        std::cin >> s;
-        char str[100];
-        std::string str2;
-        if(s == "+"){
-            std::cin.getline(str, 100);
-            str2 = str;
-            set.insert(str2);
+    char c;
+    std::cin >> c;
+    for(int i = 0; c != '#'; ++i){
+        std::string str;
+        std::cin >> str;
+        if(c == '+'){
+            set.insert(str);
         }
-        if(s == "-"){
-            std::cin.getline(str, 100);
-            str2 = str;
-            set.erase(str2);
+        if(c == '-'){
+            set.erase(str);
         }
-        if(s == "?"){
-            std::cin.getline(str, 100);
-            str2 = str;
-            std::set<std::string>::iterator it = set.find(str2);
-            std::cout << (it == set.end() ? "NO" : "YES") << std::endl;
+        if(c == '?'){
+            std::cout << (set.find(str) != set.end() ? "YES" : "NO") << std::endl;
         }
+        std::cin >> c;
     }
+    return 0;
 }
