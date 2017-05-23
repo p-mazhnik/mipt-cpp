@@ -23,7 +23,8 @@ int main() {
             ++v2[k];
         }
     }
-    int m, b;
+    unsigned long long m;
+    int b;
     std::cin >> m;
     std::vector<int> t(m);
     for (int i = 0; i < m; ++i) {

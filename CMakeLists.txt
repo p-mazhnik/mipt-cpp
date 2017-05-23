@@ -10,8 +10,8 @@ set(SOURCE_FILES
         #Geometry_26.03/Vector/Vector.cpp Geometry_26.03/Vector/Vector.h Geometry_26.03/Vector/main.cpp #Geometry_26.03/Vector/rubbish/A.cpp
         #18.04/Complex.cpp 18.04/test15.cpp #Seminar/25.04/main.cpp Seminar/25.04/Radio.cpp
         #Contest_2sem_2/Q_Radio/Q_Radio.cpp
-        Contest_2sem_2/S/S.cpp
         #Contest_2sem_2/sdacha/sdacha.cpp
-        )
+        #Contest_2sem_2/S/S_class.cpp
+        Contest_2sem_2/T/T.cpp)
 
 add_executable(mipt_cpp ${SOURCE_FILES})

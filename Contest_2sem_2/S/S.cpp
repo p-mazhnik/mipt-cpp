@@ -30,7 +30,6 @@ int main()
             bool flag = 1;
             size_t prev = 0, cur;
             while((cur = text.find(' ', prev)) != std::string::npos){
-                //std::cout << "add_while\n";
                 std::string word = text.substr(prev, cur - prev); //с какого символа и сколько символов
                 unsigned long long k = word.find('@');
                 if(flag && word.find_first_of("7891234560") != std::string::npos && k == std::string::npos){
@@ -39,7 +38,6 @@ int main()
                     } else {
                         ///телефонный номер
                         std::string ph = phone(word);
-                        //std::cout << "add" << ph << '\n';
                         if (command2 == "person" || name[fio].first.find(ph) == name[fio].first.end()) {
                             name[fio].first.insert(ph);
                             phone_name[ph].insert(fio);
@@ -59,11 +57,9 @@ int main()
                 else{
                     if(fio.size() == 0){
                         fio = (word);
-                        //std::cout << fio << '\n';
                     }
                     else{
                         fio += (' ' + word);
-                        //std::cout << fio << '\n';
                     }
                 }
                 prev = cur + 1;
@@ -101,7 +97,9 @@ int main()
                             old_number = ph;
                         }
                         if (name[fio].first.find(ph) == name[fio].first.end()) {
-                            if(flag2 == 0) flag = 0; //если не нашли старый номер
+                            if(flag2 == 0) {
+                                flag = 0;
+                            } //если не нашли старый номер
                             else {
                                 name[fio].first.erase(old_number);
                                 phone_name[old_number].erase(fio);
@@ -170,18 +168,14 @@ int main()
                 text += ' ';
                 std::string fio;
                 size_t prev = 0, cur;
-                //std::cout << "delete : phone\n";
                 while(flag && (cur = text.find(' ', prev)) != std::string::npos){
-                    //std::cout << "delete : phone\n";
                     std::string word = text.substr(prev, cur - prev); //с какого символа и сколько символов
                     if(word.find_first_of("7891234560") != std::string::npos){
                         if(!name_bool[fio]){
                             flag = 0;
-                            //std::cout << "delete:0\n";
                         } else {
                             ///телефонный номер
                             std::string ph = phone(word);
-                            //std::cout << "delete: " << ph << '\n';
                             if (name[fio].first.find(ph) == name[fio].first.end()) {
                                 flag = 0;
                             } else {
@@ -196,11 +190,9 @@ int main()
                     else{
                         if(fio.size() == 0){
                             fio += (word);
-                            //std::cout << fio << '\n';
                         }
                         else{
                             fio += (' ' + word);
-                            //std::cout << fio << '\n';
                         }
                     }
                     prev = cur + 1;
@@ -213,7 +205,6 @@ int main()
             }
         }
         if(command1 == "print"){
-            //std::cout << "print\n";
             std::cin >> command2;
             bool flag = 1;
             if(command2 == "person"){
@@ -222,7 +213,6 @@ int main()
                 fio.erase(0, 1);
                 if(!name_bool[fio]){
                     flag = 0;
-                    //std::cout << fio << " print\n";
                 } else{
                     std::cout << "Name: " << fio;
                     if(name[fio].first.size() != 0){
@@ -235,9 +225,6 @@ int main()
                         }
                     }
                     if(name[fio].second != ""){
-/*                        if(name[fio].first.size() != 0){
-                            std::cout << "; ";
-                        }*/
                         std::cout << "; Email: " << name[fio].second;
                     }
                     std::cout << '\n';
@@ -262,7 +249,9 @@ int main()
                     std::cout << '\n';
                 }
             }
-            if(!flag) std::cout << "FAIL\n";
+            if(!flag) {
+                std::cout << "FAIL\n";
+            }
         }
         if(command1 == "pr"){
             for(std::map<std::string, std::pair<std::set<std::string>, std::string> >::iterator it = name.begin(); it != name.end(); ++it){
@@ -273,7 +262,6 @@ int main()
                 std::cout << '\n';
             }
         }
-        //text.clear();
         std::cin >> command1;
     }
     return 0;
