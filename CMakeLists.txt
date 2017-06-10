@@ -12,6 +12,6 @@ set(SOURCE_FILES
         #Contest_2sem_2/Q_Radio/Q_Radio.cpp
         #Contest_2sem_2/sdacha/sdacha.cpp
         #Contest_2sem_2/S/S_class.cpp
-        Contest_2sem_2/T/T.cpp)
+        test/test_06_06_17.cpp)
 
 add_executable(mipt_cpp ${SOURCE_FILES})
