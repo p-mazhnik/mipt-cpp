@@ -8,11 +8,11 @@
 typedef std::vector<std::vector<bool>> G_matrix;
 //typedef std::vector<std::vector<int>> G_list;
 
-enum Colors {WHITE, GRAY, BLACK};
+enum Color {WHITE, GRAY, BLACK};
 
-void DFS_visit(const G_matrix &g, std::vector<Colors> &col, std::vector<int> &col_2, std::vector<int> &d_time, std::vector<int> &f_time, int &time, int u, bool &flag, int k);
+void DFS_visit(const G_matrix &g, std::vector<Color> &col, std::vector<int> &col_2, std::vector<int> &d_time, std::vector<int> &f_time, int &time, int u, bool &flag, int k);
 
-bool DFS(const G_matrix &g, std::vector<Colors> &col, std::vector<int> &col_2, std::vector<int> &d_time, std::vector<int> &f_time, int &time){
+bool DFS(const G_matrix &g, std::vector<Color> &col, std::vector<int> &col_2, std::vector<int> &d_time, std::vector<int> &f_time, int &time){
     bool flag = true;
     for(int u = 1; u <= g.size(); ++u){
         if(col[u] == WHITE){
@@ -23,7 +23,7 @@ bool DFS(const G_matrix &g, std::vector<Colors> &col, std::vector<int> &col_2, s
     return flag;
 }
 
-void DFS_visit(const G_matrix &g, std::vector<Colors> &col, std::vector<int> &col_2, std::vector<int> &d_time, std::vector<int> &f_time, int &time, int u, bool &flag, int k){
+void DFS_visit(const G_matrix &g, std::vector<Color> &col, std::vector<int> &col_2, std::vector<int> &d_time, std::vector<int> &f_time, int &time, int u, bool &flag, int k){
     col[u] = GRAY;
     ++k;
     (k % 2) ? col_2[u] = 1 : col_2[u] = 2;
@@ -44,7 +44,7 @@ int main(){
     int N, M;
     std::cin >> N >> M;
     G_matrix g(N, std::vector<bool> (N));
-    std::vector<Colors> col(N + 1, WHITE);
+    std::vector<Color> col(N + 1, WHITE);
     std::vector<int> col_2(N + 1);
     std::vector<int> d_time(N + 1);
     std::vector<int> f_time(N + 1);
