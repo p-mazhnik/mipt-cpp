@@ -13,8 +13,11 @@ set(SOURCE_FILES
         #Seminar/20.09.17_FenwikTree/main_3013.cpp
         #Seminar/20.09.17_FenwikTree/main_111778.cpp
         #Seminar/27.09.17_DecardTree/main.cpp
-        Contest_3sem_1/J/J_v2.cpp
+        #Contest_3sem_1/J/J_v2.cpp
         #Contest_3sem_1/A_SparseTable/A_v2.cpp
         #Contest_3sem_1/C_SegmentTree/C.cpp
+        #HomeWork/Dijkstra_inf_6.cpp
+        #HomeWork/Floyd_inf_98.cpp
+        HomeWork/Bellman_Ford_inf_180.cpp
         )
 add_executable(mipt_cpp ${SOURCE_FILES})
