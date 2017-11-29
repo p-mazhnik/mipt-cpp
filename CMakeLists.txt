@@ -4,20 +4,15 @@ project(mipt_cpp)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        #"Matrix 28.02/main.cpp" "Matrix 28.02/Matrix.cpp" "Matrix 28.02/Matrix.h"
-        #Function/Function.cpp
-        #"BigInt 07.03/main.cpp" "BigInt 07.03/BigInt.cpp" "BigInt 07.03/BigInt.h"
-        #Geometry_26.03/Vector/Vector.cpp Geometry_26.03/Vector/Vector.h Geometry_26.03/Vector/main.cpp
-        #Geometry_26.03/Vector/rubbish/A.cpp
-        #18.04/Complex.cpp 18.04/test15.cpp
-        #Seminar/20.09.17_FenwikTree/main_3013.cpp
-        #Seminar/20.09.17_FenwikTree/main_111778.cpp
-        #Seminar/27.09.17_DecardTree/main.cpp
         #Contest_3sem_1/J/J_v2.cpp
         #Contest_3sem_1/A_SparseTable/A_v2.cpp
         #Contest_3sem_1/C_SegmentTree/C.cpp
         #HomeWork/Dijkstra_inf_6.cpp
         #HomeWork/Floyd_inf_98.cpp
-        HomeWork/Bellman_Ford_inf_180.cpp
+        #Contest_3sem_2/F_BellmanFord/Bellman_Ford_inf_180.cpp
+        #Contest_3sem_2/G/G.cpp
+        #Contest_3sem_2/I_Floyd/I.cpp
+        Contest_3sem_2/G/G_v2.cpp
+        #Contest_3sem_2/C_disjoint-set-union/C_DSU.cpp
         )
 add_executable(mipt_cpp ${SOURCE_FILES})
