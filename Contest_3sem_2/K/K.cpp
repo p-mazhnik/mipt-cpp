@@ -2,6 +2,8 @@
 // Created by pavel on 20.11.2017.
 //
 
+//работающее решение, но лучше использовать версию № 2
+
 #include <iostream>
 #include <vector>
 
