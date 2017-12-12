@@ -17,9 +17,6 @@ struct Edge{
         finish = b;
         weight = c;
     }
-    bool operator()(Edge a, Edge b){
-        return a.start > b.start;
-    }
     friend std::istream &operator>>(std::istream &, Edge &);
 };
 
@@ -34,18 +31,23 @@ std::istream &operator>>(std::istream &in, Edge &edge) {
 }
 
 long long BellmanFord(const G_list &e, int count_vertex, int K, int start, int finish){
-    std::vector<long long> d(count_vertex, INF);
-    d[start] = 0;
+    std::vector<std::vector<long long> > distance(count_vertex, std::vector<long long> (2, INF)); //длина пути не привышает k в k-ом столбце
+    distance[start][0] = 0;
     for (int i = 0; i < K; ++i) {
+        int previous_step = i % 2;
+        int current_step = 1 - (i % 2);
         for(int j = 0; j < e.size(); ++j) {
-            if (d[e[j].start] < INF) { //RELAX
-                if (d[e[j].finish] > d[e[j].start] + e[j].weight) {
-                    d[e[j].finish] = d[e[j].start] + e[j].weight;
+            if (distance[e[j].start][previous_step] < INF) { //RELAX
+                if (distance[e[j].finish][current_step] > distance[e[j].start][previous_step] + e[j].weight) {
+                    distance[e[j].finish][current_step] = distance[e[j].start][previous_step] + e[j].weight;
                 }
             }
         }
+        for (int vertex = 0; vertex < distance.size(); vertex++) {
+            distance[vertex][current_step ] = std::min(distance[vertex][current_step], distance[vertex][previous_step]);
+        }
     }
-    return d[finish];
+    return distance[finish][K % 2];
 }
 
 int main(){
@@ -55,8 +57,6 @@ int main(){
     for (int k = 0; k < M; ++k) {
         std::cin >> e[k];
     }
-    std::sort(e.begin(), e.end(), Edge());
-
     long long answer = BellmanFord(e, N, K, Start - 1, Finish - 1);
     if(answer == INF){
         std::cout << -1 << '\n';
