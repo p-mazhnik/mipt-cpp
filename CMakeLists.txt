@@ -16,5 +16,6 @@ set(SOURCE_FILES
         #Contest_3sem_2/V/V.cpp
         #Contest_3sem_2/P_Ford_Fulkerson/P_Ford_Fulkerson.cpp
         #Contest_3sem_2/Q_EdmondsKarp/Q_EdmondsKarp.cpp
+        Contest_3sem_2/R/R.cpp
         )
 add_executable(mipt_cpp ${SOURCE_FILES})
