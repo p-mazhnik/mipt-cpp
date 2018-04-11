@@ -7,3 +7,10 @@ compile_commands.json
 CTestTestfile.cmake
 .idea/
 cmake-build-debug/
+bin/
+obj/
+*.cbp
+*.layout
+*.depend
+*.o
+*.exe

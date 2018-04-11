@@ -1,0 +1,67 @@
+100
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 90
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 89
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+dequeue
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+enqueue 91
+min
+front
+clear
